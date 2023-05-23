@@ -1,0 +1,3597 @@
+<html lang="en"><head>
+  <head>
+    <meta charset="utf-8">
+    <title>파워사다리 중계화면 - 엔트리 스코어</title>
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-mobile-web-app-title" content="엔트리">
+    <meta name="generator" content="ntry.com">
+    <meta name="author" content="ntry.com">
+    <meta name="keywords" content="엔트리,스포츠">
+    <meta name="description" content="스포츠 커뮤니티 엔트리">
+    <meta name="robots" content="ALL,INDEX,FOLLOW">
+    <meta name="format-detection" content="telephone=no">
+    <meta property="og:title" content="파워사다리 중계화면 - 엔트리 스코어">
+    <meta property="og:site_name" content="ntry">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ntry.com">
+    <meta property="og:image" content="/public/img/og_image.png">
+    <meta property="og:description" content="파워사다리 중계화면 - 엔트리 스코어">
+    <meta property="og:locale" content="ko">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="https://ntry.com">
+    <meta name="twitter:title" content="파워사다리 중계화면 - 엔트리 스코어">
+    <meta name="twitter:description" content="파워사다리 중계화면 - 엔트리 스코어">
+    <meta name="twitter:image:src" content="/public/img/og_image.png">
+    <meta itemprop="name" content="파워사다리 중계화면 - 엔트리 스코어">
+    <meta itemprop="url" content="https://ntry.com/">
+    <meta itemprop="image" content="/public/img/og_image.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/public/img/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="/public/img/apple_home_icon.png?v=20230516153008">
+    <link rel="stylesheet" type="text/css" href="/public/css/reset.css?v=20230516153008">
+    <link rel="stylesheet" type="text/css" href="/public/css/score/ui_game/v2/common.css?v=20230516153008">
+    <link rel="stylesheet" type="text/css" href="/public/css/score/ui_game/v2/power_ladder.css?v=20230516153008">
+    <link rel="stylesheet" type="text/css" href="/public/css/score/ui_game/room_newlist.css?v=20230516153008">
+    <link rel="stylesheet" type="text/css" href="/public/css/score/ui_game/banner.css?v=20230516153008">
+    <link rel="stylesheet" type="text/css" href="/public/css/score/ui_game/pattern.css?v=20230516153008">
+    <link rel="stylesheet" type="text/css" href="/public/css/stats/common_stats.css?v=20230516153008">
+    <link rel="stylesheet" type="text/css" href="/public/css/stats/ladder_stats.css?v=20230516153008">
+    <link rel="stylesheet" type="text/css" href="/public/css/score/ui_game/common.css?v=20230516153008">
+    <script type="text/javascript" src="/public/js/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/css/swiper-bundle@8.4.4.min.css">
+    <script type="text/javascript" src="/public/js/swiper-bundle@8.4.4.js"></script>
+    </head>
+  <title>Document</title>
+</head>
+<body>
+
+
+  <div class="lottery_wrap power_ladder dark">
+  <div class="header_wrap">
+  <div class="header flex_row">
+  <div class="game_type" style="position:relative;">
+  <img class="img_title" src="/public/img/score/game/title_power_ladder.png" style="display:none; width:245px;height:95px;position:absolute;top:0px;left:0px;">
+  <img class="img_title_dark" src="/public/img/score/game/title_power_ladder_dark.png" style="width:245px;height:95px;position:absolute;top:0px;left:0px;">
+  </div>
+  <a class="auction_banner" href="https://ntry.com/auction/list.php" target="_blank" style="">
+  <img src="/data/banner/1683087980_minibanner_mini_banner.png" alt="배너 이미지" class="mini-banner-image" style="max-height:90px">
+  </a> 
+  
+  
+  <div class="today_star">
+  <p>오늘 하루 누적 <span>선물 별사탕</span></p>
+  <ul class="star_amount flex_row">
+  <li class="digit_0"></li>
+  <li class="digit_1"></li>
+  <li class="digit_2">7</li>
+  <li class="digit_3">8</li>
+  <li class="digit_4">4</li>
+  <li class="digit_5">4</li>
+  <li class="digit_6">6</li>
+  </ul>
+  </div>
+  <div class="func_btns">
+  <ul class="flex_row">
+  <li mode="day" class="btn btn_mode" title="다크모드 켜기/끄기" onclick="handleDarkMode()"></li>
+  <li id="btn_share" class="btn btn_share" title="퍼가기"></li>
+  <li id="btn_tip" class="btn btn_tip" title="게임안내"></li>
+  <li id="btn_sound" class="btn btn_sound on" title="소리 켜기/끄기"></li>
+  </ul>
+  <p>
+  5분 단위로 추첨하며 288회차까지 진행
+  </p>
+  </div>
+  </div>
+  <div id="caution-area" class="inprogress_wrap">
+  <div id="timer_gauge" class="fill_bar" style="left: -478.333px;"></div>
+  <div class="progress_text">
+  <span id="countdown_clock">2분 5초 후</span>
+  <span style="margin-left: 3px;"> 추첨 시작</span>
+  </div>
+  </div>
+  <div id="ly_game_tip" class="ly_game_tip" style="display:none;">
+  <h1 class="tit">엔트리 파워사다리 게임 설명</h1>
+  <p>- 5분에 한번씩 매 4분35초, 9분35초에 게임이 실행 됩니다.</p>
+  <p>- 출발점은 일반볼 첫번째 숫자가 홀일 경우 좌출발, 짝일 경우 우출발입니다.</p>
+  <p>- 줄갯수는 일반볼 첫번째 숫자가 1~14일 경우 3줄, 15~28일 경우 4줄입니다.</p>
+  </div>
+  <div id="ly_share" class="ly_share" style="display:none;">
+  <h1 class="tit">엔트리 파워볼 중계화면 퍼가기</h1>
+  <div class="source">
+  <textarea>&lt;iframe src="http://ntry.com/scores/power_ladder/live.php" width="830" height="641" scrolling="no" frameborder="0"&gt;&lt;/iframe&gt;</textarea>
+  </div>
+  <p>위의 HTML의 코드를 복사하여 원하시는 페이지에 아이프레임으로 추가하시면 파워사다리 게임 영역만 중계화면으로 이용 가능합니다.</p>
+  </div>
+  </div>
+  <div class="contents">
+  <div class="side left">
+  <h2 class="section_tit">엔트리 채팅방</h2>
+  <div class="chatrooms_wrap">
+  
+      <div class="premium">
+          
+          <div class="img_banner" onclick="open_user_channel('/nchatting/room.php?channel_id=CH1684820067849264631');">
+              <img src="/data/profile/na/naver_134084810.png" onerror="onErrorImage(this, &quot;/data/profile/na/naver_134084810.png&quot;)">
+              <p>💎 다이아 : D 부팸장 코코몽 가족방 문의 💎</p>
+          </div>
+          <div class="button_wrap" style="margin-top: 0;">
+              <a href="javascript:open_user_channel('/nchatting/room.php?channel_id=CH1684820067849264631');" class="link_btn" aria-haspopup="true" title="💎 다이아 : D 부팸장 코코몽 가족방 문의 💎" value="9999" style="border-top-right-radius: 0; border-top-left-radius: 0;">
+                  베스트 채팅방 바로가기
+              </a>
+          </div>
+          
+          <img class="real_time_badge" style="position: absolute; margin-top: 5px; width: 46px; margin-left: 4px;" src="/public/img/chat/premium_badge2.png">
+      </div>
+  
+  <!--    <img class="section_divider" src="/public/img/score/ui_game/v2/section_divider.svg" />-->
+      <div class="chat_rank">
+      
+              <a href="javascript:open_user_channel('/nchatting/room.php?channel_id=CH1684724769852895559');" aria-haspopup="true" title="4월수익+5250 5월수익+3800 진행中" value="1">
+                  <span>1위</span>
+                  <p>4월수익+5250 5월수익+3800 진행中</p>
+              </a>
+          
+      
+              <a href="javascript:open_user_channel('/nchatting/room.php?channel_id=CH1684500154952808607');" aria-haspopup="true" title="우스만 파워볼깨기!" value="2">
+                  <span>2위</span>
+                  <p>우스만 파워볼깨기!</p>
+              </a>
+          
+      
+              <a href="javascript:open_user_channel('/nchatting/room.php?channel_id=CH1684584124372207775');" aria-haspopup="true" title="⌛ 수익룸 문의 " 파라오="" "="" ⌛"="" value="3">
+                  <span>3위</span>
+                  <p>⌛ 수익룸 문의 " 파라오 " ⌛</p>
+              </a>
+          
+      
+              <a href="javascript:open_user_channel('/nchatting/room.php?channel_id=CH1684480742620107888');" aria-haspopup="true" title="도지코인과 함께" value="4">
+                  <span>4위</span>
+                  <p>도지코인과 함께</p>
+              </a>
+          
+      
+      </div>
+  </div>
+  <div class="button_wrap">
+  <a class="link_btn dark" href="javascript:open_user_channel('/nchatting/list.php?game=EOS_POWERBALL');">채팅방 대기실</a>
+  <a class="link_btn" target="_blank" href="/tipster/pick.php?qgame=POWER">파워볼 픽</a>
+  </div>
+  </div>
+  <div class="center">
+  <div id="game_board" class="game_board">
+  <div class="start pos">
+  <span class="left">좌</span>
+  <span class="right">우</span>
+  </div>
+  <div class="row"><ul></ul></div>
+  <div class="result pos">
+  <span class="odd">홀</span>
+  <span class="even">짝</span>
+  </div>
+  <div id="waiting_board" class="waiting_board">
+   <div class="tx">
+  <span id="live_streak" class="live_streak">
+    <div class="logo">
+      <a href="http://ntry.com" target="_blank"><img src="/public/img/logo_ntry_white.svg"></a>
+      <a href="/nchatting/list.php" target="_blank"><h4>EOS 파워볼</h4></a>
+    </div>
+    <a href="/nchatting/room.php?channel_id=CH1684480742620107888" target="_blank">
+      <div class="user_info">
+        <p class="user_nick">도지코인</p><span>님이</span>
+        <p class="result">7연승</p><span>진행중</span>
+      </div>
+    </a>
+  </span>
+  <span class="result_txt"></span>
+  </div>
+  </div>
+  <div id="score_board" class="score_board" style="position:absolute;top:0px;left:0px;padding-top:120px;width:100%;height:175px;background:rgba( 0, 0, 0, 0.5 );">
+  <span class="curr_round" style="font-size:20px;line-height:1.3em;color:#fff;font-family:'Swagger', sans-serif;">
+  &nbsp;<strong style="font-size:26px;color:#fff;">286</strong> 회차<br>
+  &nbsp;<span style="color:#aaa;">추첨 준비중</span>
+  </span>
+  </div>
+  </div>
+  <div class="curr_pick">
+  <div class="tit_wrap flex_row">
+  <h2 class="section_tit">픽 분포도</h2>
+  </div>
+  <ul id="dist_graph" class="pick_graph">
+  <li class="item start" rel="start">
+  <div class="left">
+  <div class="gauge" style="width: 0%;"></div>
+  <p class="tx">0%</p>
+  </div>
+  <span class="graph_tit start">출발</span>
+  <div class="right">
+  <div class="gauge" style="width: 0%;"></div>
+  <p class="tx">0%</p>
+  </div>
+  </li>
+  <li class="item line" rel="line">
+  <div class="left">
+  <div class="gauge" style="width: 0%;"></div>
+  <p class="tx">0%</p>
+  </div>
+  <span class="graph_tit line">줄수</span>
+  <div class="right">
+  <div class="gauge" style="width: 0%;"></div>
+  <p class="tx">0%</p>
+  </div>
+  </li>
+  <li class="item oe" rel="oe">
+  <div class="left">
+  <div class="gauge" style="width: 100%;"></div>
+  <p class="tx">100.00%</p>
+  </div>
+  <span class="graph_tit oe left_on white">홀짝</span>
+  <div class="right">
+  <div class="gauge" style="width: 0%;"></div>
+  <p class="tx">0.00%</p>
+  </div>
+  </li>
+  </ul>
+  </div>
+  <p>- 분포도는 엔트리 픽분포를 기준으로 표기 -</p>
+  <div class="wait_screen live_streak">
+    <div class="logo">
+      <a href="http://ntry.com" target="_blank"><img src="/public/img/logo_ntry_white.svg"></a>
+      <a href="/nchatting/list.php" target="_blank"><h4>EOS 파워볼</h4></a>
+    </div>
+    <a href="/nchatting/room.php?channel_id=CH1684480742620107888" target="_blank">
+      <div class="user_info">
+        <p class="user_nick">도지코인</p><span>님이</span>
+        <p class="result">7연승</p><span>진행중</span>
+      </div>
+    </a>
+  </div>
+  </div>
+  <div class="side right">
+  <div class="tit_wrap flex_row">
+  <h2 class="section_tit">회차별 결과</h2>
+  <div class="toggle_btn pattern_toggle">
+  <p>패턴 &gt;</p>
+  </div>
+  </div>
+  <ul class="result_history">
+      
+      <li class="flex_row">
+          <p class="round">285회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">284회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">283회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">282회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">281회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">280회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">279회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">278회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">277회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">276회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">275회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">274회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">273회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">272회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">271회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">270회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">269회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">268회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">267회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">266회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">265회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">264회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">263회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">262회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">261회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">260회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">259회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">258회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">257회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">256회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">255회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">254회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">253회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">252회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">251회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">250회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">249회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">248회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">247회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">246회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">245회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">244회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">243회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">242회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">241회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">240회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">239회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">238회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">237회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">236회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">235회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">234회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">233회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">232회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">231회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">230회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">229회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">228회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">227회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">226회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">225회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">224회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">223회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">222회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">221회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">220회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">219회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">218회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">217회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">216회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">215회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">214회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">213회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">212회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">211회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">210회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">209회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">208회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">207회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">206회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">205회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">204회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">203회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">202회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">201회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">200회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">199회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">198회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">197회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">196회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">195회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">194회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">193회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">192회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">191회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">190회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">189회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">188회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">187회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">186회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">185회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">184회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">183회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">182회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">181회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">180회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">179회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">178회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">177회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">176회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">175회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">174회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">173회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">172회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">171회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">170회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">169회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">168회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">167회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">166회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">165회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">164회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">163회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">162회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">161회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">160회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">159회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">158회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">157회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">156회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">155회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">154회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">153회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">152회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">151회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">150회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">149회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">148회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">147회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">146회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">145회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">144회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">143회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">142회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">141회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">140회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">139회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">138회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">137회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">136회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">135회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">134회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">133회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">132회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">131회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">130회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">129회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">128회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">127회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">126회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">125회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">124회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">123회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">122회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">121회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">120회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">119회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">118회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">117회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">116회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">115회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">114회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">113회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">112회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">111회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">110회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">109회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">108회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">107회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">106회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">105회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">104회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">103회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">102회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">101회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">100회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">99회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">98회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">97회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">96회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">95회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">94회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">93회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">92회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">91회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">90회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">89회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">88회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">87회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">86회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">85회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">84회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">83회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">82회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">81회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">80회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">79회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">78회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">77회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">76회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">75회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">74회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">73회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">72회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">71회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">70회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">69회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">68회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">67회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">66회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">65회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">64회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">63회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">62회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">61회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">60회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">59회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">58회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">57회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">56회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">55회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">54회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">53회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">52회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">51회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">50회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">49회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">48회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">47회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">46회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">45회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">44회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">43회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">42회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">41회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">40회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">39회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">38회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">37회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">36회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">35회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">34회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">33회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">32회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">31회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">30회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">29회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">28회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">27회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">26회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">25회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">24회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">23회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">22회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">21회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">20회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">19회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">18회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">17회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">16회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">15회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">14회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">13회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">12회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">11회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">10회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">9회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">8회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">7회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">6회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">5회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">4회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">3회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball even"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">2회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">1회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">288회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">287회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball left"></div>
+              <div class="result_ball line4"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+      <li class="flex_row">
+          <p class="round">286회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball right"></div>
+              <div class="result_ball line3"></div>
+              <div class="result_ball odd"></div>
+          </div>
+      </li>
+      
+  </ul>
+  <div class="button_wrap">
+  <a class="link_btn dark" target="_blank" href="https://ntry.com/stats/power_ladder/date.php">일별</a>
+  <a class="link_btn dark" target="_blank" href="https://ntry.com/stats/power_ladder/round.php">회차</a>
+  <a class="link_btn dark" target="_blank" href="https://ntry.com/stats/power_ladder/pattern.php">패턴</a>
+  </div>
+  </div>
+  </div>
+  
+  <div class="pattern_table">
+  <ul id="pattern_tab" class="table_tabs analysis_tabs">
+  <li><a href="javascript:void(0);" data-pattern-type="START_POINT">출발패턴</a></li>
+  <li><a href="javascript:void(0);" data-pattern-type="LINE_COUNT">줄수패턴</a></li>
+  <li class="active"><a class="selected" href="javascript:void(0);" data-pattern-type="ODD_EVEN">홀짝패턴</a></li>
+  <li><a href="javascript:void(0);" data-pattern-type="START_LINE">출줄패턴</a></li>
+  </ul>
+  <div class="table_wrap">
+  <div class="pattern_header">
+  <ul class="pattern_count info"><li class="odd"><span class="ic">홀</span><p class="tx"><strong>140번</strong> (49.12%) 9연속</p></li><li class="even"><span class="ic">짝</span><p class="tx"><strong>145번</strong> (50.88%) 7연속</p></li><li class="etc break"><span class="ic">꺽음</span><p class="tx"><strong>154번</strong></p></li><li class="etc pongdang"><span class="ic">퐁당</span><p class="tx">7번</p></li></ul>
+  </div>
+  <div class="pattern_wrap" style="display: block;">
+  <div class="scroll-wrapper patternScroll box_area scrollbar-map" style="position: relative;"><div id="breakPatternWrap" class="patternScroll box_area scrollbar-map scroll-content" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 0px;">
+  
+  <div id="patternBreak" class="patternBox main"><dl><dd class="B">1</dd><dd class="B">2</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">3</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">4</dd><dd class="B">5</dd><dd class="B">6</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">7</dd><dd class="R">8</dd><dd class="R">9</dd><dd class="R">10</dd><dd></dd><dd></dd></dl><dl><dd class="B">11</dd><dd class="B">12</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">13</dd><dd class="R">14</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">15</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">16</dd><dd class="R">17</dd><dd class="R">18</dd><dd class="R">19</dd><dd class="R">20</dd><dd class="R">21</dd></dl><dl><dd class="B">23</dd><dd class="B">24</dd><dd class="B">25</dd><dd class="B">26</dd><dd class="B">27</dd><dd class="R">22</dd></dl><dl><dd class="R">29</dd><dd class="R">30</dd><dd class="R">31</dd><dd></dd><dd class="B">28</dd><dd></dd></dl><dl><dd class="B">32</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">33</dd><dd class="R">34</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">35</dd><dd class="B">36</dd><dd class="B">37</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">38</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">39</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">40</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">41</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">42</dd><dd class="R">43</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">44</dd><dd class="B">45</dd><dd class="B">46</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">47</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">48</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">49</dd><dd class="R">50</dd><dd class="R">51</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">52</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">53</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">54</dd><dd class="B">55</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">56</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">57</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">58</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">59</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">60</dd><dd class="R">61</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">62</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">63</dd><dd class="R">64</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">65</dd><dd class="B">66</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">67</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">68</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">69</dd><dd class="R">70</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">71</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">72</dd><dd class="R">73</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">74</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">75</dd><dd class="R">76</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">77</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">78</dd><dd class="R">79</dd><dd class="R">80</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">81</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">82</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">83</dd><dd class="B">84</dd><dd class="B">85</dd><dd class="B">86</dd><dd></dd><dd></dd></dl><dl><dd class="R">87</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">88</dd><dd class="B">89</dd><dd class="B">90</dd><dd class="B">91</dd><dd></dd><dd></dd></dl><dl><dd class="R">92</dd><dd class="R">93</dd><dd class="R">94</dd><dd class="R">95</dd><dd></dd><dd></dd></dl><dl><dd class="B">96</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">97</dd><dd class="R">98</dd><dd class="R">99</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">100</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">101</dd><dd class="R">102</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">103</dd><dd class="B">104</dd><dd class="B">105</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">106</dd><dd class="R">107</dd><dd class="R">108</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">109</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">110</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">111</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">112</dd><dd class="R">113</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">114</dd><dd class="B">115</dd><dd class="B">116</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">117</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">118</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">119</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">120</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">121</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">122</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">123</dd><dd class="R">124</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">125</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">126</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">127</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">128</dd><dd class="R">129</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">130</dd><dd class="B">131</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">132</dd><dd class="R">133</dd><dd class="R">134</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">135</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">136</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">137</dd><dd class="B">138</dd><dd class="B">139</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">140</dd><dd class="R">141</dd><dd class="R">142</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">143</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">144</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">145</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">146</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">147</dd><dd class="B">148</dd><dd class="B">149</dd><dd class="B">150</dd><dd></dd><dd></dd></dl><dl><dd class="R">151</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">152</dd><dd class="B">153</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">154</dd><dd class="R">155</dd><dd class="R">156</dd><dd class="R">157</dd><dd class="R">158</dd><dd></dd></dl><dl><dd class="B">159</dd><dd class="B">160</dd><dd class="B">161</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">162</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">163</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">164</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">165</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">166</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">167</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">168</dd><dd class="R">169</dd><dd class="R">170</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">171</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">172</dd><dd class="R">173</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">174</dd><dd class="B">175</dd><dd class="B">176</dd><dd class="B">177</dd><dd class="B">178</dd><dd class="B">179</dd></dl><dl><dd class="R">183</dd><dd class="R">184</dd><dd class="R">185</dd><dd></dd><dd></dd><dd class="B">180</dd></dl><dl><dd class="B">186</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd class="B">181</dd></dl><dl><dd class="R">187</dd><dd class="R">188</dd><dd class="R">189</dd><dd class="R">190</dd><dd></dd><dd class="B">182</dd></dl><dl><dd class="B">191</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">192</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">193</dd><dd class="B">194</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">195</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">196</dd><dd class="B">197</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">198</dd><dd class="R">199</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">200</dd><dd class="B">201</dd><dd class="B">202</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">203</dd><dd class="R">204</dd><dd class="R">205</dd><dd class="R">206</dd><dd></dd><dd></dd></dl><dl><dd class="B">207</dd><dd class="B">208</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">209</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">210</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">211</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">212</dd><dd class="B">213</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">214</dd><dd class="R">215</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">216</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">217</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">218</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">219</dd><dd class="R">220</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">221</dd><dd class="B">222</dd><dd class="B">223</dd><dd class="B">224</dd><dd class="B">225</dd><dd class="B">226</dd></dl><dl><dd class="R">228</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd class="B">227</dd></dl><dl><dd class="B">229</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">230</dd><dd class="R">231</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">232</dd><dd class="B">233</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">234</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">235</dd><dd class="B">236</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">237</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">238</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">239</dd><dd class="R">240</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">241</dd><dd class="B">242</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">243</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">244</dd><dd class="B">245</dd><dd class="B">246</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">247</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">248</dd><dd class="B">249</dd><dd class="B">250</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">251</dd><dd class="R">252</dd><dd class="R">253</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">254</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">255</dd><dd class="R">256</dd><dd class="R">257</dd><dd class="R">258</dd><dd></dd><dd></dd></dl><dl><dd class="B">259</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">260</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">261</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">262</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">263</dd><dd class="B">264</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">265</dd><dd class="R">266</dd><dd class="R">267</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">268</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">269</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">270</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">271</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">272</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">273</dd><dd class="R">274</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">275</dd><dd class="B">276</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">277</dd><dd class="R">278</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">279</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">280</dd><dd class="R">281</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">282</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">283</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">284</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">285</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl></div>
+  </div><div class="scroll-element_outer scroll-x scroll-y">
+  <div class="scroll-element_size">
+  <div class="scroll-element_track"></div>
+  <div class="scroll-bar"></div>
+  </div>
+  </div></div>
+  <div class="sub_patterns">
+  <div class="scroll-wrapper patternScroll box_area scrollbar-map" style="position: relative;"><div id="countPatternWrap" class="patternScroll box_area scrollbar-map scroll-content" style="width: 400px !important; height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 0px;">
+  
+  <div id="patternCount" class="patternBox pattern6"><dl><dd class="B">1</dd><dd class="B">2</dd><dd class="R">3</dd><dd class="B">4</dd><dd class="B">5</dd><dd class="B">6</dd></dl><dl><dd class="R">7</dd><dd class="R">8</dd><dd class="R">9</dd><dd class="R">10</dd><dd class="B">11</dd><dd class="B">12</dd></dl><dl><dd class="R">13</dd><dd class="R">14</dd><dd class="B">15</dd><dd class="R">16</dd><dd class="R">17</dd><dd class="R">18</dd></dl><dl><dd class="R">19</dd><dd class="R">20</dd><dd class="R">21</dd><dd class="R">22</dd><dd class="B">23</dd><dd class="B">24</dd></dl><dl><dd class="B">25</dd><dd class="B">26</dd><dd class="B">27</dd><dd class="B">28</dd><dd class="R">29</dd><dd class="R">30</dd></dl><dl><dd class="R">31</dd><dd class="B">32</dd><dd class="R">33</dd><dd class="R">34</dd><dd class="B">35</dd><dd class="B">36</dd></dl><dl><dd class="B">37</dd><dd class="R">38</dd><dd class="B">39</dd><dd class="R">40</dd><dd class="B">41</dd><dd class="R">42</dd></dl><dl><dd class="R">43</dd><dd class="B">44</dd><dd class="B">45</dd><dd class="B">46</dd><dd class="R">47</dd><dd class="B">48</dd></dl><dl><dd class="R">49</dd><dd class="R">50</dd><dd class="R">51</dd><dd class="B">52</dd><dd class="R">53</dd><dd class="B">54</dd></dl><dl><dd class="B">55</dd><dd class="R">56</dd><dd class="B">57</dd><dd class="R">58</dd><dd class="B">59</dd><dd class="R">60</dd></dl><dl><dd class="R">61</dd><dd class="B">62</dd><dd class="R">63</dd><dd class="R">64</dd><dd class="B">65</dd><dd class="B">66</dd></dl><dl><dd class="R">67</dd><dd class="B">68</dd><dd class="R">69</dd><dd class="R">70</dd><dd class="B">71</dd><dd class="R">72</dd></dl><dl><dd class="R">73</dd><dd class="B">74</dd><dd class="R">75</dd><dd class="R">76</dd><dd class="B">77</dd><dd class="R">78</dd></dl><dl><dd class="R">79</dd><dd class="R">80</dd><dd class="B">81</dd><dd class="R">82</dd><dd class="B">83</dd><dd class="B">84</dd></dl><dl><dd class="B">85</dd><dd class="B">86</dd><dd class="R">87</dd><dd class="B">88</dd><dd class="B">89</dd><dd class="B">90</dd></dl><dl><dd class="B">91</dd><dd class="R">92</dd><dd class="R">93</dd><dd class="R">94</dd><dd class="R">95</dd><dd class="B">96</dd></dl><dl><dd class="R">97</dd><dd class="R">98</dd><dd class="R">99</dd><dd class="B">100</dd><dd class="R">101</dd><dd class="R">102</dd></dl><dl><dd class="B">103</dd><dd class="B">104</dd><dd class="B">105</dd><dd class="R">106</dd><dd class="R">107</dd><dd class="R">108</dd></dl><dl><dd class="B">109</dd><dd class="R">110</dd><dd class="B">111</dd><dd class="R">112</dd><dd class="R">113</dd><dd class="B">114</dd></dl><dl><dd class="B">115</dd><dd class="B">116</dd><dd class="R">117</dd><dd class="B">118</dd><dd class="R">119</dd><dd class="B">120</dd></dl><dl><dd class="R">121</dd><dd class="B">122</dd><dd class="R">123</dd><dd class="R">124</dd><dd class="B">125</dd><dd class="R">126</dd></dl><dl><dd class="B">127</dd><dd class="R">128</dd><dd class="R">129</dd><dd class="B">130</dd><dd class="B">131</dd><dd class="R">132</dd></dl><dl><dd class="R">133</dd><dd class="R">134</dd><dd class="B">135</dd><dd class="R">136</dd><dd class="B">137</dd><dd class="B">138</dd></dl><dl><dd class="B">139</dd><dd class="R">140</dd><dd class="R">141</dd><dd class="R">142</dd><dd class="B">143</dd><dd class="R">144</dd></dl><dl><dd class="B">145</dd><dd class="R">146</dd><dd class="B">147</dd><dd class="B">148</dd><dd class="B">149</dd><dd class="B">150</dd></dl><dl><dd class="R">151</dd><dd class="B">152</dd><dd class="B">153</dd><dd class="R">154</dd><dd class="R">155</dd><dd class="R">156</dd></dl><dl><dd class="R">157</dd><dd class="R">158</dd><dd class="B">159</dd><dd class="B">160</dd><dd class="B">161</dd><dd class="R">162</dd></dl><dl><dd class="B">163</dd><dd class="R">164</dd><dd class="B">165</dd><dd class="R">166</dd><dd class="B">167</dd><dd class="R">168</dd></dl><dl><dd class="R">169</dd><dd class="R">170</dd><dd class="B">171</dd><dd class="R">172</dd><dd class="R">173</dd><dd class="B">174</dd></dl><dl><dd class="B">175</dd><dd class="B">176</dd><dd class="B">177</dd><dd class="B">178</dd><dd class="B">179</dd><dd class="B">180</dd></dl><dl><dd class="B">181</dd><dd class="B">182</dd><dd class="R">183</dd><dd class="R">184</dd><dd class="R">185</dd><dd class="B">186</dd></dl><dl><dd class="R">187</dd><dd class="R">188</dd><dd class="R">189</dd><dd class="R">190</dd><dd class="B">191</dd><dd class="R">192</dd></dl><dl><dd class="B">193</dd><dd class="B">194</dd><dd class="R">195</dd><dd class="B">196</dd><dd class="B">197</dd><dd class="R">198</dd></dl><dl><dd class="R">199</dd><dd class="B">200</dd><dd class="B">201</dd><dd class="B">202</dd><dd class="R">203</dd><dd class="R">204</dd></dl><dl><dd class="R">205</dd><dd class="R">206</dd><dd class="B">207</dd><dd class="B">208</dd><dd class="R">209</dd><dd class="B">210</dd></dl><dl><dd class="R">211</dd><dd class="B">212</dd><dd class="B">213</dd><dd class="R">214</dd><dd class="R">215</dd><dd class="B">216</dd></dl><dl><dd class="R">217</dd><dd class="B">218</dd><dd class="R">219</dd><dd class="R">220</dd><dd class="B">221</dd><dd class="B">222</dd></dl><dl><dd class="B">223</dd><dd class="B">224</dd><dd class="B">225</dd><dd class="B">226</dd><dd class="B">227</dd><dd class="R">228</dd></dl><dl><dd class="B">229</dd><dd class="R">230</dd><dd class="R">231</dd><dd class="B">232</dd><dd class="B">233</dd><dd class="R">234</dd></dl><dl><dd class="B">235</dd><dd class="B">236</dd><dd class="R">237</dd><dd class="B">238</dd><dd class="R">239</dd><dd class="R">240</dd></dl><dl><dd class="B">241</dd><dd class="B">242</dd><dd class="R">243</dd><dd class="B">244</dd><dd class="B">245</dd><dd class="B">246</dd></dl><dl><dd class="R">247</dd><dd class="B">248</dd><dd class="B">249</dd><dd class="B">250</dd><dd class="R">251</dd><dd class="R">252</dd></dl><dl><dd class="R">253</dd><dd class="B">254</dd><dd class="R">255</dd><dd class="R">256</dd><dd class="R">257</dd><dd class="R">258</dd></dl><dl><dd class="B">259</dd><dd class="R">260</dd><dd class="B">261</dd><dd class="R">262</dd><dd class="B">263</dd><dd class="B">264</dd></dl><dl><dd class="R">265</dd><dd class="R">266</dd><dd class="R">267</dd><dd class="B">268</dd><dd class="R">269</dd><dd class="B">270</dd></dl><dl><dd class="R">271</dd><dd class="B">272</dd><dd class="R">273</dd><dd class="R">274</dd><dd class="B">275</dd><dd class="B">276</dd></dl><dl><dd class="R">277</dd><dd class="R">278</dd><dd class="B">279</dd><dd class="R">280</dd><dd class="R">281</dd><dd class="B">282</dd></dl><dl><dd class="R">283</dd><dd class="B">284</dd><dd class="R">285</dd></dl></div>
+  </div><div class="scroll-element_outer scroll-x scroll-y">
+  <div class="scroll-element_size">
+  <div class="scroll-element_track"></div>
+  <div class="scroll-bar"></div>
+  </div>
+  </div></div>
+  <div class="china_patterns">
+  <div class="scroll-wrapper patternScroll box_area scrollbar-map" style="position: relative;"><div id="chinaPattern1Wrap" class="patternScroll box_area scrollbar-map scroll-content" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 0px;">
+  
+  <div id="patternChina1" class="patternBox china1"><dl><dd class="B">4</dd><dd class="B">5</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">6</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">7</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">8</dd><dd class="R">9</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">10</dd><dd class="B">11</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">12</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">13</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">14</dd><dd class="R">15</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">16</dd><dd class="B">17</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">18</dd><dd class="R">19</dd><dd class="R">20</dd><dd class="R">21</dd><dd class="R">22</dd><dd></dd></dl><dl><dd class="B">23</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">24</dd><dd class="R">25</dd><dd class="R">26</dd><dd class="R">27</dd><dd class="R">28</dd><dd></dd></dl><dl><dd class="B">29</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">30</dd><dd class="R">31</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">32</dd><dd class="B">33</dd><dd class="B">34</dd><dd class="B">35</dd><dd></dd><dd></dd></dl><dl><dd class="R">36</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">37</dd><dd class="B">38</dd><dd class="B">39</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">40</dd><dd class="R">41</dd><dd class="R">42</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">43</dd><dd class="B">44</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">45</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">46</dd><dd class="B">47</dd><dd class="B">48</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">49</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">50</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">51</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">52</dd><dd class="B">53</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">54</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">55</dd><dd class="B">56</dd><dd class="B">57</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">58</dd><dd class="R">59</dd><dd class="R">60</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">61</dd><dd class="B">62</dd><dd class="B">63</dd><dd class="B">64</dd><dd class="B">65</dd><dd></dd></dl><dl><dd class="R">66</dd><dd class="R">67</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">68</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">69</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">70</dd><dd class="B">71</dd><dd class="B">72</dd><dd class="B">73</dd><dd class="B">74</dd><dd class="B">75</dd></dl><dl><dd class="R">80</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd class="B">76</dd></dl><dl><dd class="B">81</dd><dd class="B">82</dd><dd></dd><dd></dd><dd></dd><dd class="B">77</dd></dl><dl><dd class="R">83</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd class="B">78</dd></dl><dl><dd class="B">84</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd class="B">79</dd></dl><dl><dd class="R">85</dd><dd class="R">86</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">87</dd><dd class="B">88</dd><dd class="B">89</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">90</dd><dd class="R">91</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">92</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">93</dd><dd class="R">94</dd><dd class="R">95</dd><dd class="R">96</dd><dd></dd><dd></dd></dl><dl><dd class="B">97</dd><dd class="B">98</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">99</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">100</dd><dd class="B">101</dd><dd class="B">102</dd><dd class="B">103</dd><dd></dd><dd></dd></dl><dl><dd class="R">104</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">105</dd><dd class="B">106</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">107</dd><dd class="R">108</dd><dd class="R">109</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">110</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">111</dd><dd class="R">112</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">113</dd><dd class="B">114</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">115</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">116</dd><dd class="B">117</dd><dd class="B">118</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">119</dd><dd class="R">120</dd><dd class="R">121</dd><dd class="R">122</dd><dd class="R">123</dd><dd></dd></dl><dl><dd class="B">124</dd><dd class="B">125</dd><dd class="B">126</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">127</dd><dd class="R">128</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">129</dd><dd class="B">130</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">131</dd><dd class="R">132</dd><dd class="R">133</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">134</dd><dd class="B">135</dd><dd class="B">136</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">137</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">138</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">139</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">140</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">141</dd><dd class="R">142</dd><dd class="R">143</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">144</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">145</dd><dd class="R">146</dd><dd class="R">147</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">148</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">149</dd><dd class="R">150</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">151</dd><dd class="B">152</dd><dd class="B">153</dd><dd class="B">154</dd><dd></dd><dd></dd></dl><dl><dd class="R">155</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">156</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">157</dd><dd class="R">158</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">159</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">160</dd><dd class="R">161</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">162</dd><dd class="B">163</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">164</dd><dd class="R">165</dd><dd class="R">166</dd><dd class="R">167</dd><dd class="R">168</dd><dd></dd></dl><dl><dd class="B">169</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">170</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">171</dd><dd class="B">172</dd><dd class="B">173</dd><dd class="B">174</dd><dd></dd><dd></dd></dl><dl><dd class="R">175</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">176</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">177</dd><dd class="R">178</dd><dd class="R">179</dd><dd class="R">180</dd><dd class="R">181</dd><dd class="R">182</dd></dl><dl><dd class="B">183</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">184</dd><dd class="R">185</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">186</dd><dd class="B">187</dd><dd class="B">188</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">189</dd><dd class="R">190</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">191</dd><dd class="B">192</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">193</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">194</dd><dd class="B">195</dd><dd class="B">196</dd><dd class="B">197</dd><dd class="B">198</dd><dd></dd></dl><dl><dd class="R">199</dd><dd class="R">200</dd><dd class="R">201</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">202</dd><dd class="B">203</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">204</dd><dd class="R">205</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">206</dd><dd class="B">207</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">208</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">209</dd><dd class="B">210</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">211</dd><dd class="R">212</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">213</dd><dd class="B">214</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">215</dd><dd class="R">216</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">217</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">218</dd><dd class="R">219</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">220</dd><dd class="B">221</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">222</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">223</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">224</dd><dd class="R">225</dd><dd class="R">226</dd><dd class="R">227</dd><dd></dd><dd></dd></dl><dl><dd class="B">228</dd><dd class="B">229</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">230</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">231</dd><dd class="B">232</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">233</dd><dd class="R">234</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">235</dd><dd class="B">236</dd><dd class="B">237</dd><dd class="B">238</dd><dd></dd><dd></dd></dl><dl><dd class="R">239</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">240</dd><dd class="B">241</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">242</dd><dd class="R">243</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">244</dd><dd class="B">245</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">246</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">247</dd><dd class="B">248</dd><dd class="B">249</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">250</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">251</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">252</dd><dd class="R">253</dd><dd class="R">254</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">255</dd><dd class="B">256</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">257</dd><dd class="R">258</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">259</dd><dd class="B">260</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">261</dd><dd class="R">262</dd><dd class="R">263</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">264</dd><dd class="B">265</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">266</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">267</dd><dd class="B">268</dd><dd class="B">269</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">270</dd><dd class="R">271</dd><dd class="R">272</dd><dd class="R">273</dd><dd></dd><dd></dd></dl><dl><dd class="B">274</dd><dd class="B">275</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">276</dd><dd class="R">277</dd><dd class="R">278</dd><dd class="R">279</dd><dd></dd><dd></dd></dl><dl><dd class="B">280</dd><dd class="B">281</dd><dd class="B">282</dd><dd class="B">283</dd><dd></dd><dd></dd></dl><dl><dd class="R">284</dd><dd class="R">285</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl></div>
+  </div><div class="scroll-element_outer scroll-x scroll-y">
+  <div class="scroll-element_size">
+  <div class="scroll-element_track"></div>
+  <div class="scroll-bar"></div>
+  </div>
+  </div></div>
+  <div class="scroll-wrapper patternScroll box_area scrollbar-map" style="position: relative;"><div id="chinaPattern2Wrap" class="patternScroll box_area scrollbar-map scroll-content" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 0px;">
+  
+  <div id="patternChina2" class="patternBox china2"><dl><dd class="R">5</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">6</dd><dd class="B">7</dd><dd class="B">8</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">9</dd><dd class="R">10</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">11</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">12</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">13</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">14</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">15</dd><dd class="B">16</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">17</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">18</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">19</dd><dd class="R">20</dd><dd class="R">21</dd><dd class="R">22</dd><dd></dd><dd></dd></dl><dl><dd class="B">23</dd><dd class="B">24</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">25</dd><dd class="R">26</dd><dd class="R">27</dd><dd class="R">28</dd><dd></dd><dd></dd></dl><dl><dd class="B">29</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">30</dd><dd class="R">31</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">32</dd><dd class="B">33</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">34</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">35</dd><dd class="B">36</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">37</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">38</dd><dd class="B">39</dd><dd class="B">40</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">41</dd><dd class="R">42</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">43</dd><dd class="B">44</dd><dd class="B">45</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">46</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">47</dd><dd class="B">48</dd><dd class="B">49</dd><dd class="B">50</dd><dd></dd><dd></dd></dl><dl><dd class="R">51</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">52</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">53</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">54</dd><dd class="B">55</dd><dd class="B">56</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">57</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">58</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">59</dd><dd class="R">60</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">61</dd><dd class="B">62</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">63</dd><dd class="R">64</dd><dd class="R">65</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">66</dd><dd class="B">67</dd><dd class="B">68</dd><dd class="B">69</dd><dd class="B">70</dd><dd class="B">71</dd></dl><dl><dd class="R">72</dd><dd class="R">73</dd><dd class="R">74</dd><dd class="R">75</dd><dd class="R">76</dd><dd class="R">77</dd></dl><dl><dd class="B">80</dd><dd class="B">81</dd><dd></dd><dd></dd><dd></dd><dd class="R">78</dd></dl><dl><dd class="R">82</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd class="R">79</dd></dl><dl><dd class="B">83</dd><dd class="B">84</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">85</dd><dd class="R">86</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">87</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">88</dd><dd class="R">89</dd><dd class="R">90</dd><dd class="R">91</dd><dd class="R">92</dd><dd></dd></dl><dl><dd class="B">93</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">94</dd><dd class="R">95</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">96</dd><dd class="B">97</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">98</dd><dd class="R">99</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">100</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">101</dd><dd class="R">102</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">103</dd><dd class="B">104</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">105</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">106</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">107</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">108</dd><dd class="B">109</dd><dd class="B">110</dd><dd class="B">111</dd><dd></dd><dd></dd></dl><dl><dd class="R">112</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">113</dd><dd class="B">114</dd><dd class="B">115</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">116</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">117</dd><dd class="B">118</dd><dd class="B">119</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">120</dd><dd class="R">121</dd><dd class="R">122</dd><dd class="R">123</dd><dd></dd><dd></dd></dl><dl><dd class="B">124</dd><dd class="B">125</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">126</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">127</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">128</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">129</dd><dd class="B">130</dd><dd class="B">131</dd><dd class="B">132</dd><dd></dd><dd></dd></dl><dl><dd class="R">133</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">134</dd><dd class="B">135</dd><dd class="B">136</dd><dd class="B">137</dd><dd class="B">138</dd><dd></dd></dl><dl><dd class="R">139</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">140</dd><dd class="B">141</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">142</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">143</dd><dd class="B">144</dd><dd class="B">145</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">146</dd><dd class="R">147</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">148</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">149</dd><dd class="R">150</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">151</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">152</dd><dd class="R">153</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">154</dd><dd class="B">155</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">156</dd><dd class="R">157</dd><dd class="R">158</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">159</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">160</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">161</dd><dd class="B">162</dd><dd class="B">163</dd><dd class="B">164</dd><dd></dd><dd></dd></dl><dl><dd class="R">165</dd><dd class="R">166</dd><dd class="R">167</dd><dd class="R">168</dd><dd></dd><dd></dd></dl><dl><dd class="B">169</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">170</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">171</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">172</dd><dd class="R">173</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">174</dd><dd class="B">175</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">176</dd><dd class="R">177</dd><dd class="R">178</dd><dd class="R">179</dd><dd class="R">180</dd><dd class="R">181</dd></dl><dl><dd class="B">183</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd class="R">182</dd></dl><dl><dd class="R">184</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">185</dd><dd class="B">186</dd><dd class="B">187</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">188</dd><dd class="R">189</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">190</dd><dd class="B">191</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">192</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">193</dd><dd class="B">194</dd><dd class="B">195</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">196</dd><dd class="R">197</dd><dd class="R">198</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">199</dd><dd class="B">200</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">201</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">202</dd><dd class="B">203</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">204</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">205</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">206</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">207</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">208</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">209</dd><dd class="B">210</dd><dd class="B">211</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">212</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">213</dd><dd class="B">214</dd><dd class="B">215</dd><dd class="B">216</dd><dd class="B">217</dd><dd class="B">218</dd></dl><dl><dd class="R">219</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">220</dd><dd class="B">221</dd><dd class="B">222</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">223</dd><dd class="R">224</dd><dd class="R">225</dd><dd class="R">226</dd><dd class="R">227</dd><dd></dd></dl><dl><dd class="B">228</dd><dd class="B">229</dd><dd class="B">230</dd><dd class="B">231</dd><dd class="B">232</dd><dd class="B">233</dd></dl><dl><dd class="R">236</dd><dd class="R">237</dd><dd class="R">238</dd><dd></dd><dd></dd><dd class="B">234</dd></dl><dl><dd class="B">239</dd><dd class="B">240</dd><dd class="B">241</dd><dd class="B">242</dd><dd></dd><dd class="B">235</dd></dl><dl><dd class="R">245</dd><dd></dd><dd></dd><dd class="B">243</dd><dd class="B">244</dd><dd></dd></dl><dl><dd class="B">246</dd><dd class="B">247</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">248</dd><dd class="R">249</dd><dd class="R">250</dd><dd class="R">251</dd><dd></dd><dd></dd></dl><dl><dd class="B">252</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">253</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">254</dd><dd class="B">255</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">256</dd><dd class="R">257</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">258</dd><dd class="B">259</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">260</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">261</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">262</dd><dd class="R">263</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">264</dd><dd class="B">265</dd><dd class="B">266</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">267</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">268</dd><dd class="B">269</dd><dd class="B">270</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">271</dd><dd class="R">272</dd><dd class="R">273</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">274</dd><dd class="B">275</dd><dd class="B">276</dd><dd class="B">277</dd><dd></dd><dd></dd></dl><dl><dd class="R">278</dd><dd class="R">279</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">280</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">281</dd><dd class="R">282</dd><dd class="R">283</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">284</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">285</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl></div>
+  </div><div class="scroll-element_outer scroll-x scroll-y">
+  <div class="scroll-element_size">
+  <div class="scroll-element_track"></div>
+  <div class="scroll-bar"></div>
+  </div>
+  </div></div>
+  <div class="sub_patterns">
+  <div class="scroll-wrapper patternScroll box_area scrollbar-map" style="position: relative;"><div id="chinaPattern3Wrap" class="patternScroll box_area scrollbar-map scroll-content" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 0px;">
+  
+  <div id="patternChina3" class="patternBox china3"><dl><dd class="R">8</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">9</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">10</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">11</dd><dd class="B">12</dd><dd class="B">13</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">14</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">15</dd><dd class="B">16</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">17</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">18</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">19</dd><dd class="R">20</dd><dd class="R">21</dd><dd class="R">22</dd><dd></dd><dd></dd></dl><dl><dd class="B">23</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">24</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">25</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">26</dd><dd class="R">27</dd><dd class="R">28</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">29</dd><dd class="B">30</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">31</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">32</dd><dd class="B">33</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">34</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">35</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">36</dd><dd class="R">37</dd><dd class="R">38</dd><dd class="R">39</dd><dd></dd><dd></dd></dl><dl><dd class="B">40</dd><dd class="B">41</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">42</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">43</dd><dd class="B">44</dd><dd class="B">45</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">46</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">47</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">48</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">49</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">50</dd><dd class="R">51</dd><dd class="R">52</dd><dd class="R">53</dd><dd class="R">54</dd><dd class="R">55</dd></dl><dl><dd class="B">56</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">57</dd><dd class="R">58</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">59</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">60</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">61</dd><dd class="B">62</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">63</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">64</dd><dd class="B">65</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">66</dd><dd class="R">67</dd><dd class="R">68</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">69</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">70</dd><dd class="R">71</dd><dd class="R">72</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">73</dd><dd class="B">74</dd><dd class="B">75</dd><dd class="B">76</dd><dd class="B">77</dd><dd class="B">78</dd></dl><dl><dd class="R">80</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd class="B">79</dd></dl><dl><dd class="B">81</dd><dd class="B">82</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">83</dd><dd class="R">84</dd><dd class="R">85</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">86</dd><dd class="B">87</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">88</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">89</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">90</dd><dd class="R">91</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">92</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">93</dd><dd class="R">94</dd><dd class="R">95</dd><dd class="R">96</dd><dd class="R">97</dd><dd class="R">98</dd></dl><dl><dd class="B">100</dd><dd class="B">101</dd><dd class="B">102</dd><dd class="B">103</dd><dd></dd><dd class="R">99</dd></dl><dl><dd class="R">104</dd><dd class="R">105</dd><dd class="R">106</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">107</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">108</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">109</dd><dd class="B">110</dd><dd class="B">111</dd><dd class="B">112</dd><dd class="B">113</dd><dd class="B">114</dd></dl><dl><dd class="R">116</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd class="B">115</dd></dl><dl><dd class="B">117</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">118</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">119</dd><dd class="B">120</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">121</dd><dd class="R">122</dd><dd class="R">123</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">124</dd><dd class="B">125</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">126</dd><dd class="R">127</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">128</dd><dd class="B">129</dd><dd class="B">130</dd><dd class="B">131</dd><dd class="B">132</dd><dd class="B">133</dd></dl><dl><dd class="R">134</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">135</dd><dd class="B">136</dd><dd class="B">137</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">138</dd><dd class="R">139</dd><dd class="R">140</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">141</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">142</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">143</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">144</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">145</dd><dd class="B">146</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">147</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">148</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">149</dd><dd class="R">150</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">151</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">152</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">153</dd><dd class="B">154</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">155</dd><dd class="R">156</dd><dd class="R">157</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">158</dd><dd class="B">159</dd><dd class="B">160</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">161</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">162</dd><dd class="B">163</dd><dd class="B">164</dd><dd class="B">165</dd><dd></dd><dd></dd></dl><dl><dd class="R">166</dd><dd class="R">167</dd><dd class="R">168</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">169</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">170</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">171</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">172</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">173</dd><dd class="B">174</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">175</dd><dd class="R">176</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">177</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">178</dd><dd class="R">179</dd><dd class="R">180</dd><dd class="R">181</dd><dd class="R">182</dd><dd></dd></dl><dl><dd class="B">183</dd><dd class="B">184</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">185</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">186</dd><dd class="B">187</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">188</dd><dd class="R">189</dd><dd class="R">190</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">191</dd><dd class="B">192</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">193</dd><dd class="R">194</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">195</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">196</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">197</dd><dd class="B">198</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">199</dd><dd class="R">200</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">201</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">202</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">203</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">204</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">205</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">206</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">207</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">208</dd><dd class="R">209</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">210</dd><dd class="B">211</dd><dd class="B">212</dd><dd class="B">213</dd><dd class="B">214</dd><dd class="B">215</dd></dl><dl><dd class="R">217</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd class="B">216</dd></dl><dl><dd class="B">218</dd><dd class="B">219</dd><dd class="B">220</dd><dd class="B">221</dd><dd class="B">222</dd><dd></dd></dl><dl><dd class="R">223</dd><dd class="R">224</dd><dd class="R">225</dd><dd class="R">226</dd><dd class="R">227</dd><dd></dd></dl><dl><dd class="B">228</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">229</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">230</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">231</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">232</dd><dd class="B">233</dd><dd class="B">234</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">235</dd><dd class="R">236</dd><dd class="R">237</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">238</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">239</dd><dd class="R">240</dd><dd class="R">241</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">242</dd><dd class="B">243</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">244</dd><dd class="R">245</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">246</dd><dd class="B">247</dd><dd class="B">248</dd><dd class="B">249</dd><dd></dd><dd></dd></dl><dl><dd class="R">250</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">251</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">252</dd><dd class="R">253</dd><dd class="R">254</dd><dd class="R">255</dd><dd class="R">256</dd><dd class="R">257</dd></dl><dl><dd class="B">258</dd><dd class="B">259</dd><dd class="B">260</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">261</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">262</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">263</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">264</dd><dd class="B">265</dd><dd class="B">266</dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">267</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">268</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">269</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">270</dd><dd class="B">271</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">272</dd><dd class="R">273</dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">274</dd><dd class="B">275</dd><dd class="B">276</dd><dd class="B">277</dd><dd class="B">278</dd><dd class="B">279</dd></dl><dl><dd class="R">281</dd><dd class="R">282</dd><dd></dd><dd></dd><dd></dd><dd class="B">280</dd></dl><dl><dd class="B">283</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="R">284</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl><dl><dd class="B">285</dd><dd></dd><dd></dd><dd></dd><dd></dd><dd></dd></dl></div>
+  </div><div class="scroll-element_outer scroll-x scroll-y">
+  <div class="scroll-element_size">
+  <div class="scroll-element_track"></div>
+  <div class="scroll-bar"></div>
+  </div>
+  </div></div>
+  <ul class="bp_box">
+  <li class="R">
+  <div>R</div>
+  <span id="red_next_1" class="border B"></span>
+  <span id="red_next_2" class="solid B"></span>
+  <span id="red_next_3" class="line B"></span>
+  </li>
+  <li class="B">
+  <div>B</div>
+  <span id="blue_next_1" class="border R"></span>
+  <span id="blue_next_2" class="solid R"></span>
+  <span id="blue_next_3" class="line R"></span>
+  </li>
+  </ul>
+  </div>
+  </div>
+  </div>
+  </div>
+  <div class="analysis" id="analysis" analysis-type="round" analysis-data="288" style="display: none">
+  <div id="pattern_graph" class="pattern_graph basic_pattern_graph">
+  <div class="view" id="pattern">
+  
+  <div class="box_area">
+  <div id="pattern-box" class="inner" style="height:272px;"></div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <img class="toggle_close_btn pattern_toggle" src="/public/img/score/ui_game/v2/table_close.svg">
+  </div>
+  </div>
+  
+  <div id="div_background" style="display:none;"></div>
+  <div id="game_caution" style="display:none;"></div>
+  <div id="div_background_closed" style="display:none;"></div>
+  <div id="game_caution_closed_state" style="display:none;"></div>
+  
+  <script id="chatroom-item" type="text/template">
+  [%
+  if (data && data[0]) {
+  
+      var mb_id = data[0].owner.mb_id;
+      var dir = mb_id.substring(0, 2);
+  
+      var profile_path = '/data/profile/' + dir + '/' + mb_id + '.png';
+      if (data[0].image && data[0].image !== '') {
+          profile_path = data[0].image;
+      }
+  
+      var extend_style_class = data[0].owner.extend_style_class;
+      let premium_check = true;
+      if (data[0].have_room === undefined) {
+          premium_check = false;
+      }
+  
+      var is_premium_ad = false;
+      if (profile_path && profile_path.indexOf('/data/ad/') !== -1) {
+          is_premium_ad = true;
+      }
+      var profile_path_name = profile_path.replace(/\.[^/.]+$/, "");
+      var profile_path_jpg = profile_path_name + '.jpg';
+      var profile_path_gif = profile_path_name + '.gif';
+  %]
+      <div class="premium">
+          [% if (data[0].have_room === true && data[0].image && data[0].image !== '') { %]
+          <div class="img_banner" onclick="open_user_channel('/nchatting/room.php?channel_id=[%=data[0].roomNo%]');" style="width:100%;height:100%;background-image:url('[%=profile_path%]');background-position:center center;background-size:cover;">
+              <img src="[%=profile_path%]" style="width:100%;height:100%;" onerror='onErrorImage(this, "[%=profile_path%]")'>
+          </div>
+          <!-- <div class="button_wrap">
+              <a href="javascript:open_user_channel('/nchatting/room.php?channel_id=[%=data[0].roomNo%]');" class="link_btn" aria-haspopup="true" title="[%=data[0].title%]" value="[%=data[0].rank%]">
+                  [%=data[0].have_room === false ? "유저홈 바로가기" : "채팅방 바로가기"%]
+              </a>
+          </div> -->
+          [% } else if (data[0].have_room === false && data[0].image && data[0].image !== '') { %]
+          <div class="img_banner" onclick="open_user_channel('/nchatting/room.php?channel_id=[%=data[0].roomNo%]');" style="width:100%;height:100%;background-image:url('[%=profile_path%]');background-position:center center;background-size:cover;">
+              [% if (is_premium_ad) { %]
+                  <img src="[%=profile_path%]" style="width:100%;height:100%;" onerror='onErrorImage(this, "[%=profile_path%]")'>
+              [% } %]
+          </div>
+          <!-- <div class="button_wrap">
+              <a href="/user/home.php?mb_id=[%=data[0].owner.mb_id %]&ad_zone=premium_ab" class="link_btn" onclick="return open_user_home(this)" value="[%=data[0].rank%]">
+                  [%=data[0].have_room === false ? "유저홈 바로가기" : "채팅방 바로가기"%]
+              </a>
+          </div> -->
+          [% } else { %]
+          <div class="img_banner" onclick="open_user_channel('/nchatting/room.php?channel_id=[%=data[0].roomNo%]');">
+              <img src="[%=profile_path%]" onerror='onErrorImage(this, "[%=profile_path%]")' />
+              <p>[%=data[0].title%]</p>
+          </div>
+          <div class="button_wrap" style="margin-top: 0;">
+              <a href="javascript:open_user_channel('/nchatting/room.php?channel_id=[%=data[0].roomNo%]');" class="link_btn" aria-haspopup="true" title="[%=data[0].title%]" value="[%=data[0].rank%]"
+                 style="border-top-right-radius: 0; border-top-left-radius: 0;">
+                  베스트 채팅방 바로가기
+              </a>
+          </div>
+          [% } %]
+          <img class="real_time_badge" style="position: absolute; margin-top: 5px; width: 46px; margin-left: 4px;" src="/public/img/chat/premium_badge2.png">
+      </div>
+  [%
+  }
+  %]
+  <!--    <img class="section_divider" src="/public/img/score/ui_game/v2/section_divider.svg" />-->
+      <div class="chat_rank">
+      [%
+      for (var k in data) {
+          if (k == 0) continue;
+          var row = data[k];
+          var rank = row.rank;
+  
+          <!--        let premium_check = true;-->
+          <!--        if (data[k].have_room === undefined) {-->
+          <!--            premium_check = false;-->
+          <!--        }-->
+          <!--        var rank = premium_check ? row.rank : Number(k)+1;-->
+  
+          if (row.roomNo === '-') {
+      %]
+              <a class="disabled_link">
+                  <span>[%=rank%]위</span>
+                  <p>[%=row.title%]</p>
+              </a>
+          [% } else { %]
+              <a href="javascript:open_user_channel('/nchatting/room.php?channel_id=[%=row.roomNo%]');" aria-haspopup="true" title="[%=row.title%]" value="[%=row.rank%]">
+                  <span>[%=rank%]위</span>
+                  <p>[%=row.title%]</p>
+              </a>
+          [% } %]
+      [% } %]
+      </div>
+  </script>
+  
+  <script id="live_streak-template" type="text/template">
+    <div class="logo">
+      <a href="http://ntry.com" target="_blank"><img src="/public/img/logo_ntry_white.svg"></a>
+      <a href="/nchatting/list.php" target="_blank"><h4>EOS 파워볼</h4></a>
+    </div>
+    <a href="/nchatting/room.php?channel_id=[%=data.channel_id%]" target="_blank">
+      <div class="user_info">
+        <p class="user_nick">[%=data.mb_nick%]</p><span>님이</span>
+        <p class="result">[%=data.mb_streak%]연승</p><span>진행중</span>
+      </div>
+    </a>
+  </script>
+  
+  <script id="best-template" type="text/template">
+    <div class="logo">
+      <a href="http://ntry.com" target="_blank"><img src="/public/img/logo_ntry_white.svg">
+          <h4>EOS파워볼</h4>
+      </a>
+    </div>
+    <a href="/nchatting/room.php?channel_id=[%=data.channel_id%]" target="_blank">
+      <div class="user_info">
+      <span class="result best_result">실시간 베스트</span>
+      <p class="user_nick">[%=data.mb_nick%]</p><span>님</span>
+    </div></a>
+  </script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script>
+    let pattern_type = 'ODD_EVEN';
+    $(".analysis_tabs li").click(function() {
+      $(".analysis_tabs li").removeClass('active');
+      $(".analysis_tabs li a").removeClass('selected');
+      const type = $(this).children().attr('data-number-type');
+      pattern_type = $(this).children().attr('data-pattern-type');
+      $(this).addClass('active');
+      $(this).children().addClass('selected');
+      if(pattern_type !== 'START_LINE') {
+        powerLadderPattern.setListType(tempList, type, pattern_type);
+        //powerLadderPattern.run();
+      } else {
+        powerLadderPattern.renderBasicPattern(tempList, type, pattern_type);
+      }
+    });
+  </script>
+  
+  <script id="result-history-item" type="text/template">
+      [% for (let k in data) {
+      let start_point = (data[k].start_point).toLowerCase();
+      let odd_even = (data[k].odd_even).toLowerCase();
+      %]
+      <li class="flex_row">
+          <p class="round">[%=data[k].date_round%]회차</p>
+          <div class="balls_wrap">
+              <div class="result_ball [%=start_point%]"></div>
+              <div class="result_ball line[%=data[k].line_count%]"></div>
+              <div class="result_ball [%=odd_even%]"></div>
+          </div>
+      </li>
+      [% } %]
+  </script>
+  <script id="caution" type="text/template">
+      <div class="game_check">
+          <p class="tit">엔트리파워사다리 점검시간안내</p>
+          <p class="date">[%=data.start_dt%] ~ [%=data.end_dt%]</p>
+      </div>
+  </script>
+  <script id="cotton" type="text/template">
+      <div class="game_cotton">
+          <div class="game_cotton_title_lottery">
+              <div class="title"></div>
+          </div>
+          <div class="game_cotton_content">
+              <p class="sub_title">안녕하세요. 엔트리 운영팀입니다.</p>
+              <br/>
+              <p class="content">[%=content%]</p>
+              <br/><br/>
+              <p class="date">일시 : [%=start_dt%] ~ [%=end_dt%]</p>
+              <br/>
+              <p class="help_address">기타문의는 help@ntry.com을 이용 바랍니다. 감사합니다.</p>
+          </div>
+      </div>
+  </script>
+  
+  <script id="game_closed_state" type="text/template">
+      <p class="sub_title">- 휴장 안내 -</p>
+      <p class="sub_title" style="margin-top: -20px">[%=content%]</p>
+      <img src="/cheditor/icons/dosa_v2/panic.png" class="closed_freeze" height="150px" width="150px">
+  </script>
+  
+  <script id="pattern-template" type="text/template">
+      [% _.each(data, function (row) { %]
+      <dl>
+          <dt class="[%=isNaN(row.value) ? row.value : '_' + row.value %]">[%=(row.value_alias) ? row.value_alias : row.value %]</dt>
+          [% _.each(row.rounds, function (round) { %]
+          <dd>
+              <span class="[%=isNaN(row.value) ? row.value : '_' + row.value %]" title="[%=row.value%]">
+                  [%=round%]
+                  [% if(row.value == 'ODD' || row.value == 'EVEN'){%]
+                  <em class="dot [%=row.start_line[round]%]"></em>
+                  [% } %]
+              </span>
+          </dd>
+          [% }); %]
+          <dd class="length">[%=row.count%]</dd>
+          <dd class="times">[%=row.seq%]</dd>
+      </dl>
+      [% }); %]
+  </script>
+  
+  <script id="analysis-template" type="text/template">
+      <div class="bar_graph">
+          <div class="bar">
+              <p class="left [%=(cnt_left > cnt_right) ? 'on' : ''%]" style="width:[%=per_left%]%;">
+                  <span class="per"><strong>[%=cnt_left%]</strong> ([%=per_left%]%)</span>
+                  <span class="tx">좌</span>
+              </p>
+              <p class="right [%=(cnt_left < cnt_right) ? 'on' : ''%]" style="width:[%=per_right%]%;">
+                  <span class="per"><strong>[%=cnt_right%]</strong> ([%=per_right%]%)</span>
+                  <span class="tx">우</span>
+              </p>
+          </div>
+          <div class="bar">
+              <p class="left [%=(cnt_line3 > cnt_line4) ? 'on' : ''%]" style="width:[%=per_line3%]%;">
+                  <span class="per"><strong>[%=cnt_line3%]</strong> ([%=per_line3%]%)</span>
+                  <span class="tx">3</span>
+              </p>
+              <p class="right [%=(cnt_line3 < cnt_line4) ? 'on' : ''%]" style="width:[%=per_line4%]%;">
+                  <span class="per"><strong>[%=cnt_line4%]</strong> ([%=per_line4%]%)</span>
+                  <span class="tx">4</span>
+              </p>
+          </div>
+          <div class="bar">
+              <p class="left [%=(cnt_even < cnt_odd) ? 'on' : ''%]" style="width:[%=per_odd%]%;">
+                  <span class="per"><strong>[%=cnt_odd%]</strong> ([%=per_odd%]%)</span>
+                  <span class="tx">홀</span>
+              </p>
+              <p class="right [%=(cnt_even > cnt_odd) ? 'on' : ''%]" style="width:[%=per_even%]%;">
+                  <span class="per"><strong>[%=cnt_even%]</strong> ([%=per_even%]%)</span>
+                  <span class="tx">짝</span>
+              </p>
+          </div>
+      </div>
+      <div class="pie_graph">
+          <div class="graph"></div>
+          <ul class="info">
+              <li class="left4odd [%=(cnt_left4odd == max_val) ? 'on' : ''%]"><span class="ic"></span>좌4홀 : [%=cnt_left4odd%]회 (<em class="per">[%=per_left4odd%]</em>%)</li>
+              <li class="right3odd [%=(cnt_right3odd == max_val) ? 'on' : ''%]"><span class="ic"></span>우3홀 : [%=cnt_right3odd%]회 (<em class="per">[%=per_right3odd%]</em>%)</li>
+              <li class="left3even [%=(cnt_left3even == max_val) ? 'on' : ''%]"><span class="ic"></span>좌3짝 : [%=cnt_left3even%]회 (<em class="per">[%=per_left3even%]</em>%)</li>
+              <li class="right4even [%=(cnt_right4even == max_val) ? 'on' : ''%]"><span class="ic"></span>우4짝 : [%=cnt_right4even%]회 (<em class="per">[%=per_right4even%]</em>%)</li>
+          </ul>
+      </div>
+  </script>
+  
+  <script id="round-history-row" type="text/template">
+      <tr>
+          <td class="round_cell">{{date}}-<strong>{{round}}</strong></td>
+          <td>{{time}}</td>
+          <td class="start_cell"><span class="{{left_right_class}}">{{line_value}}</span></td>
+          <td class="line_cell"><span class="{{line_count_class}}">{{line_count}}</span></td>
+          <td class="oddeven_cell"><span class="{{even_odd_class}}">{{result_value}}</span></td>
+      </tr>
+  </script>
+  <script type="text/javascript" src="/public/js/stats/pattern_ver3.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/score/live_info.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/score/ui_game/getNewAdList.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/score/ui_game/v2/power_ladder_board.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/moment.min.js?v=20230516153009"></script>
+  <script type="text/javascript">
+  var live_game_type = "power_ladder";
+  var gauge_size = 820;
+  var live_game_board = new PowerLadderBoard("286", live_game_type);
+  var sound_effect_seconds = 5;
+  var service_check = false;
+  
+  var powerLadderPattern = new Pattern({
+    list: [],
+    row: 6,
+    column: 20,
+    maxRow: 6,
+  });
+  
+  powerLadderPattern.gameType = 'POWER_LADDER';
+  
+  var tempList = [];
+  
+  $(function () {
+      // 점검 시간 체크
+      checkCaution();
+      renderingLiveAdds();
+      // game status close check
+      checkGameClosedState();
+      renderingResultList();
+  
+      setInterval(() => {
+          checkCaution();
+          checkGameClosedState();
+      }, 60000);
+  
+    $('#breakPatternWrap').scrollbar({
+      "onInit": function () {
+        this.container.find('.scroll-element_outer').appendTo(this.wrapper);
+      },
+      "onUpdate": function (container) {
+      },
+      "autoScrollSize": false,
+      "scrollx": $('#breakPatternWrap .scroll-element_outer'),
+      "scrolly": $('#breakPatternWrap .scroll-element_outer'),
+      "stepScrolling": false
+    });
+  
+    $('#countPatternWrap').scrollbar({
+      "onInit": function () {
+        this.container.find('.scroll-element_outer').appendTo(this.wrapper);
+      },
+      "onUpdate": function (container) {
+      },
+      "autoScrollSize": false,
+      "scrollx": $('#countPatternWrap .scroll-element_outer'),
+      "scrolly": $('#countPatternWrap .scroll-element_outer'),
+      "stepScrolling": false
+    });
+  
+    $('#chinaPattern1Wrap').scrollbar({
+      "onInit": function () {
+        this.container.find('.scroll-element_outer').appendTo(this.wrapper);
+      },
+      "onUpdate": function (container) {
+      },
+      "autoScrollSize": false,
+      "scrollx": $('#chinaPattern1Wrap .scroll-element_outer'),
+      "scrolly": $('#chinaPattern1Wrap .scroll-element_outer'),
+      "stepScrolling": false
+    });
+  
+    $('#chinaPattern2Wrap').scrollbar({
+      "onInit": function () {
+        this.container.find('.scroll-element_outer').appendTo(this.wrapper);
+      },
+      "onUpdate": function (container) {
+      },
+      "autoScrollSize": false,
+      "scrollx": $('#chinaPattern2Wrap .scroll-element_outer'),
+      "scrolly": $('#chinaPattern2Wrap .scroll-element_outer'),
+      "stepScrolling": false
+    });
+  
+    $('#chinaPattern3Wrap').scrollbar({
+      "onInit": function () {
+        this.container.find('.scroll-element_outer').appendTo(this.wrapper);
+      },
+      "onUpdate": function (container) {
+      },
+      "autoScrollSize": false,
+      "scrollx": $('#chinaPattern3Wrap .scroll-element_outer'),
+      "scrolly": $('#chinaPattern3Wrap .scroll-element_outer'),
+      "stepScrolling": false
+    });
+  
+  
+    $('.box_area').hover(function () {
+      $(this).find('.scroll-element_outer .scroll-bar').stop().css({
+        "height": "100%",
+        "background-color": "rgba(204, 204, 204, 0.1)",
+        "border-radius": "0px"
+      });
+    }, function () {
+      $(this).find('.scroll-element_outer .scroll-bar').stop().css({
+        "height": "3px",
+        "background-color": "rgba(163, 240, 0, 1)",
+        "border-radius": "1ex"
+      });
+    });
+  
+    let bp_box_check = "";
+    $(".bp_box li").click(function () {
+      const check_color = $(this).hasClass('R') ? "R" : "B";
+      $(".bp_box li").removeClass('active');
+      if (bp_box_check === check_color) {
+        bp_box_check = "";
+        powerLadderPattern.chinaNextCheckPattern(false);
+      } else {
+        bp_box_check = check_color;
+        $(this).addClass('active');
+        powerLadderPattern.chinaNextCheckPattern($(this).hasClass('R') ? "R" : "B");
+      }
+    })
+  })
+  
+  // 점검 시간 체크
+  function checkCaution() {
+      let caution_path = '/data/json/games/powerball/caution.json';
+      return fetch(caution_path).then( res => res.json())
+          .then(row => {
+              if (row && row.start_dt && row.end_dt) {
+                  const now = moment().valueOf();
+                  const start_dt = moment(row.start_dt).format('YYYY-MM-DD HH:mm');
+                  const end_dt = moment(row.end_dt).format('YYYY-MM-DD HH:mm');
+  
+                  const start = moment(start_dt).valueOf();
+                  const end = moment(end_dt).valueOf();
+  
+                  if (start && end && start <= now && end >= now) {
+                      let content = row.content.replace(/\n/g, "<br />");
+                      let str_end_dt = end_dt;
+                      if (end > now + 60 * 60 * 24 * 7 * 1000) str_end_dt = '점검 완료시';
+  
+                      let html = new EJS({element: 'cotton'}).render({
+                          content: content,
+                          start_dt: start_dt,
+                          end_dt: str_end_dt
+                      });
+                      $("#game_caution").html(html);
+  
+                      $("#game_caution").show();
+                      $("#div_background").show();
+                  } else {
+                      $("#game_caution").hide();
+                      $("#div_background").hide();
+                  }
+              }
+          })
+          .catch(err => {
+              //console.log(err);
+          });
+  }
+  
+  // Game closed status check
+  function checkGameClosedState() {
+      let caution_path = '/data/json/games/powerball/game_closed_state.json';
+      return fetch(caution_path).then(res => res.json())
+          .then(row => {
+  
+              if(row.hasOwnProperty('period') && row['period'] === 'empty') {
+                  $("#game_caution_closed_state").hide();
+                  $("#div_background_closed").hide();
+                  return;
+              }
+  
+              // console.log('THIS IS THE FILE: ', row);
+              if (row && row['start_hour'] && row['end_hour']) {
+  
+                  const st_amount = row['start_hour'].split(':')[0] * 60 + row['start_hour'].split(':')[1] * 1;
+                  const ed_amount = row['end_hour'].split(':')[0] * 60 + row['end_hour'].split(':')[1] * 1;
+  
+                  if(st_amount < ed_amount ) {
+                      // console.log('one period base');
+  
+                      let st_hour = parseInt(row['start_hour'].split(':')[0]),
+                          st_min = parseInt(row['start_hour'].split(':')[1]),
+                          end_hour = parseInt(row['end_hour'].split(':')[0]),
+                          end_min = parseInt(row['end_hour'].split(':')[1]),
+                          now = moment().valueOf(),
+                          start_time = moment().startOf('day').add(st_hour, 'hours').add(st_min, 'minutes').format('YYYY-MM-DD HH:mm'),
+                          end_time = moment().startOf('day').add(end_hour, 'hours').add(end_min, 'minutes').format('YYYY-MM-DD HH:mm'),
+                          start = moment(start_time).valueOf(),
+                          end = moment(end_time).valueOf();
+  
+                      // console.log('NOW: ', moment().format('YYYY-MM-DD HH:mm'));
+                      if (start && end && start <= now && end >= now) {
+  
+                          //console.log(`REACHED TARGET`);
+                          let content = row.content.replace(/\n/g, "<br />");
+                          let html = new EJS({element: 'game_closed_state'}).render({
+                              content: content,
+                          });
+                          $("#game_caution_closed_state").html(html);
+                          $("#game_caution_closed_state").show();
+                          $("#div_background_closed").show();
+  
+                      } else {
+                          $("#game_caution_closed_state").hide();
+                          $("#div_background_closed").hide();
+                      }
+  
+                  } else {
+                      // console.log('extra period base');
+  
+                      let st_hour = parseInt(row['start_hour'].split(':')[0]),
+                          st_min = parseInt(row['start_hour'].split(':')[1]),
+                          end_hour = 23, end_min = 59, st_hour_ext = 0, st_min_ext = 0,
+                          end_hour_ext = parseInt(row['end_hour'].split(':')[0]),
+                          end_min_ext = parseInt(row['end_hour'].split(':')[1]),
+                          now = moment().valueOf(),
+                          start_time = moment().startOf('day').add(st_hour, 'hours').add(st_min, 'minutes').format('YYYY-MM-DD HH:mm'),
+                          end_time = moment().startOf('day').add(end_hour, 'hours').add(end_min, 'minutes').format('YYYY-MM-DD HH:mm'),
+                          start_time_ext = moment().startOf('day').add(st_hour_ext, 'hours').add(st_min_ext, 'minutes').format('YYYY-MM-DD HH:mm'),
+                          end_time_ext = moment().startOf('day').add(end_hour_ext, 'hours').add(end_min_ext, 'minutes').format('YYYY-MM-DD HH:mm'),
+                          start = moment(start_time).valueOf(),
+                          end = moment(end_time).valueOf();
+  
+                      // console.log('NOW: ', moment().format('YYYY-MM-DD HH:mm'));
+                      if (start && end && start <= now && end >= now) {
+  
+                          //console.log(`REACHED TARGET`);
+                          let content = row.content.replace(/\n/g, "<br />");
+                          let html = new EJS({element: 'game_closed_state'}).render({
+                              content: content,
+                          });
+                          $("#game_caution_closed_state").html(html);
+                          $("#game_caution_closed_state").show();
+                          $("#div_background_closed").show();
+  
+                      } else if(moment(start_time_ext).valueOf() && moment(end_time_ext).valueOf()
+                          && moment(start_time_ext).valueOf() <= now && moment(end_time_ext).valueOf() >= now) {
+  
+                          //console.log(`REACHED EXTRA TARGET:: start_time_ext: ${start_time_ext} and end_time_ext: ${end_time_ext}`);
+                          let content = row.content.replace(/\n/g, "<br />");
+                          let html = new EJS({element: 'game_closed_state'}).render({
+                              content: content,
+                          });
+                          $("#game_caution_closed_state").html(html);
+                          $("#game_caution_closed_state").show();
+                          $("#div_background_closed").show();
+                      }
+                      else {
+                          $("#game_caution_closed_state").hide();
+                          $("#div_background_closed").hide();
+                      }
+                  }
+  
+  
+              } else return;
+          })
+          .catch(err => {
+              console.log('STATUS FETCHING ERROR: ', err);
+          });
+  }
+  
+  function renderingResultList() {
+    $.get('/data/json/games/power_ladder/recent_result.json', function(res) {
+      window.latestRound = res[0].date_round;
+      let html = new EJS({ element: 'result-history-item'}).render({
+        data: res
+      });
+      $('.result_history').html(html);
+  
+      tempList = res;
+      if(pattern_type !== 'START_LINE') {
+        powerLadderPattern.setListType(res, powerLadderPattern.type, pattern_type);
+      } else {
+        powerLadderPattern.renderBasicPattern(res, 'POWER_LADDER', pattern_type);
+      }
+    })
+  }
+  </script>
+  <script type="text/javascript" src="/public/js/score/ui_game/v2/power_execute.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/score/ui_game/getNewChatList.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/score/analytics.js?v=20230516153009"></script>
+  <script>
+      $(function() {
+          // GET RESULT HISTORY FOR RIGHT PANEL
+          // $.get('/data/json/games/power_ladder/recent_result.json', function(res) {
+          //     window.latestRound = res[0].date_round;
+          //     let html = new EJS({ element: 'result-history-item'}).render({
+          //         data: res
+          //     });
+          //     $('.result_history').html(html);
+          //
+          //     tempList = res;
+          //     powerLadderPattern.setListType(res, powerLadderPattern.type, powerLadderPattern.pattern_type)
+          // })
+  
+          // GET CHAT ROOM LIST FOR LEFT PANEL
+          renderingChatList();
+      })
+  </script>
+  <script type="text/javascript" src="/public/js/score/clock.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/score/dist.js?v=20230516153009"></script>
+  <script type="text/javascript">
+  
+      //(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      //        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      //    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      //})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      //
+      //ga('create', 'UA-161443936-1', 'auto');
+      //ga('set', 'userId', '//');
+      //var dimension1Value = '//';
+      //ga('set', 'dimension1', dimension1Value);
+      //ga('set', 'dimension2', '//');
+  
+      // var dimension3Value = 'browser';
+      // if (/HeadlessChrome/.test(window.navigator.userAgent)) {
+      //     dimension3Value = 'bot';
+      // }
+      // if (!window.navigator.languages) {
+      //     dimension3Value = 'bot';
+      // }
+      // ga('set', 'dimension3', dimension3Value);
+      //
+      // try {
+      //     if (self !== top && top.location.host === self.location.host) {
+      //         ga('send', 'pageview', location.pathname.replace('/live.php', '/main.php'));
+      //     } else {
+      //         throw "new window";
+      //     }
+      // } catch (e) {
+      //     ga('send', 'pageview');
+      // }
+  
+      (function clock_update() {
+          game_clock.update();
+          setTimeout(clock_update, 100);
+      }());
+  
+      (function(){
+          game_clock.sync_clock();
+      })();
+  
+      (function dist_update() {
+          game_dist.set_dist();
+          setTimeout(dist_update, 3000);
+      }());
+  </script>
+  <script type="text/javascript" src="/public/js/common.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/cookie.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/ejs/ejs_production.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/score/ui_game/v2/common.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/d3.min.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/more.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/stats/api_caller.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/stats/common.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/underscore-min.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/stats/json_file_caller.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/stats/stats_common.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/stats/power_ladder/power_ladder_common.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/stats/analysis_ver2.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/stats/stats_history.js?v=20230516153009"></script>
+  <script type="text/javascript" src="/public/js/jquery.scrollbar.min.js?v=20230516153009"></script>
+  
+  
+  <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"><div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div></div></body>
