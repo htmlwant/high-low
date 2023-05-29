@@ -1,0 +1,14 @@
+body{height:913px; background: #59C173;  /* fallback for old browsers */background: -webkit-linear-gradient(to right, #5D26C1, #a17fe0, #59C173);  background: linear-gradient(to right, #5D26C1, #a17fe0, #59C173);}
+h2{color:white; font-size:3em; text-align:center;}
+#register{display:grid; place-content:center; height:100%;}
+form{border:2px solid white; padding:10vh; background:transparent; border-radius:30px 30px 30px 30px;}
+.login_ , .id , .nick , .pass1 , .pass2 , .submit{width:100%; align-items:center; text-align:center; margin-bottom:10px;} /*text 디자인 설정 */ 
+.user_id , .user_nick , .user_pass1 , .user_pass2, .user_submit{width:350px; height:40px; border:1px solid white; background-color:transparent; color:white;}
+input{color:white;}
+.user_id::placeholder , .user_nick::placeholder , .user_pass1::placeholder , .user_pass2::placeholder, .user_submit::placeholder{text-align: center; color:white;}
+.login_>a{text-decoration:underline; color:white;}
+.error , .success{background-color:transparent; border:2px solid rgba(49, 173, 146, 0.493); width:95%; border-radius: 5px; font-size:12px; color:black; font-weight:bolder; display:flex; align-items:center; justify-content: center; width:100%; height:4vh;}
+@media(min-height:800px){body{margin:0px; padding:0px; height:100vh;} .user_id , .user_nick , .user_pass1 , .user_pass2, .user_submit{width:250px;} form{width:25vh;}}
+@media(max-width:380px){body{margin:0px; padding:0px; height:100vh;} .user_id , .user_nick , .user_pass1 , .user_pass2, .user_submit{width:250px;} form{width:35vh;}}
+@media(max-height:790px){body{margin:0px; padding:0px; height:100vh;} .user_id , .user_nick , .user_pass1 , .user_pass2, .user_submit{width:250px;} form{width:200px;} #register{display:grid; place-content: center;}  #register_view{position:relative; right:25px;} .login_{text-align:center; width:33vh; margin-top:10px;}}
+@media(max-width:300px){body{margin:0px; padding:0px; height:100vh;} .user_id , .user_nick , .user_pass1 , .user_pass2, .user_submit{width:250px;} form{width:26vh;} #register_view{display:relative; right:40px;} .login_{text-align:center; width:38vh; margin-top:10px;}}

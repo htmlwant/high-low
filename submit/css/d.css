@@ -10,11 +10,12 @@ form{height:100%;}
 #help{display:flex; justify-content: space-between; align-items: center;}
 #help>a>p{color:white; opacity:90%;}
 #help>a{text-decoration:underline; color:white;}
-a>.submit{height:4vh; width:10vh; border-radius: 10px 10px 10px 10px; border:none; background-color:transparent; color:white; border:1.5px solid white;}
-a>.submit:hover{background-color:wheat; transition: 0.5ms; color:black;}
+.login_{height:4vh; width:10vh; border-radius: 10px 10px 10px 10px; border:none; background-color:transparent; color:white; border:1.5px solid white;}
+.login_:hover{background-color:wheat; transition: 0.5ms; color:black;}
 #login > a > h1{font-family: 'Gugi', cursive; color:white; text-align: center; font-size:10vh;}
 #login>a{text-decoration: none;}
 .username:focus::placeholder , .password:focus::placeholder{color:transparent;}
+.error{color:white; font-size:2vh; font-weight:bolder; text-align: center; border:2px solid white; height:4vh; display:flex; justify-content: center ; align-items: center;}
 @media(max-width:800px){a{width:auto;} #login > a > h1{font-size:7vh;} form{width:auto;} #login{width:100%;}.username , .password {width:340px;} #help > a > p{font-size:2vh;} a > .submit{height:5vh; width:10vh;}}
 @media(max-width:280px){a{width:auto;} #login > a > h1{font-size:7vh;} form{width:auto;} #login{width:100%;}.username , .password {width:250px;} #help > a > p{font-size:2vh;} a > .submit{height:5vh; width:10vh;}}
 @media(max-height:500px){body{height:60vh;} a{width:auto;} #login > a > h1{font-size:17vh;} form{width:auto;} #login{width:100%;} .username , .password {width:100vh; height:200px;} #help > a > p{font-size:3vh;} a > .submit{height:10vh; width:13vh;}}
